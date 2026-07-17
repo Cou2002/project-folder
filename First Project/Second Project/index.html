@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>project</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f1f1f1;
+        }
+
+        .default-display-image-con {
+            box-sizing: border-box;
+            width: 100%;
+            max-height: 150px;
+        }
+
+        .default-display-image-con>img {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            border-radius: 10px 10px 0px 0px;
+            transition: .7s;
+        }
+
+
+        .defualt-store {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        @media screen and (max-width: 900px) {
+            .defualt-store {
+                grid-template-columns: 2fr 2fr;
+            }
+
+            .default-display-image-con {
+                box-sizing: border-box;
+                width: 100%;
+                max-height: 90px;
+            }
+
+            .default-display-image-con>img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        }
+
+        .default-store--child-con {
+            border: 1px solid #ccc;
+            max-width: 350px;
+            background-color: #f9f9f9;
+            margin: 15px 5px;
+            min-height: 200px;
+            display: flex;
+            border-radius: 10px;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        #default-add-button {
+            border: none;
+            padding: 6px;
+            border-radius: 5px;
+            background-color: rgb(15, 62, 65);
+            margin-top: 7px;
+            color: white;
+            transition: .5s;
+        }
+
+        #default-add-button:hover {
+            background-color: rgba(12, 51, 54, 0.785);
+
+        }
+
+        .default-name {
+            color: rgba(0, 0, 0, 0.858);
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .default-price {
+            margin-top: 5px;
+            color: rgb(15, 62, 65);
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .defaut-details-con {
+            padding: 10px;
+            height: 100%;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #default-add-button {
+            display: block;
+            width: 100%;
+        }
+
+
+        .your-cart {
+            position: sticky;
+            top: 0;
+            min-height: 100px;
+            max-height: 300px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin: 0px 20px;
+        }
+
+        .image-con {
+            border: 1px solid #f1f1f1;
+            display: block;
+            width: 50px;
+            height: 55px;
+            border-radius: 10px;
+        }
+
+        .image-con>img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .your-cart-details {
+            margin-left: 10px;
+        }
+
+        .your-cart-details>.price--quantity {
+            color: grey;
+            font-size: 14px;
+            margin: 5px 0px 5px 0px;
+        }
+
+        .your-cart-display--flex {
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            align-items: end;
+            padding: 10px 10px 10px 0px;
+        }
+
+        .button-con>button {
+            font-size: 11px;
+        }
+
+        .button-con>#remove {
+            color: red;
+            border: none;
+            padding: 4px 6px;
+            border-radius: 5px;
+            background-color: rgb(231, 222, 224);
+        }
+
+        .button-con>#decrease {
+            border: none;
+            padding: 4px 10px;
+            border-radius: 5px;
+            background-color: #ccc;
+        }
+
+        /*Container edit code below*/
+
+        .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            max-width: 1100px;
+            margin: 0px auto;
+        }
+
+        @media screen and (max-width: 600px) {
+            .container {
+                display: flex;
+                flex-direction: column;
+            }
+
+        }
+
+        /*End*/
+
+        /*Form container edit the code below*/
+        form {
+            border: 1px solid #ccc;
+            max-width: 360px;
+            padding: 25px;
+            margin: 0px auto;
+            background-color: white;
+            border-radius: 20px;
+        }
+
+        .head-caption--times {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .head-caption--times>h4 {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .times {
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        form>input {
+            display: block;
+            width: 100%;
+            margin-top: 5px;
+            padding: 10px 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button[type='submit'] {
+            border: none;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px 5px;
+            margin-top: 12px;
+            border-radius: 8px;
+            background-color: rgb(15, 62, 65);
+            color: whitesmoke;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 11px;
+            margin-top: 12px;
+            display: block;
+        }
+
+        /*End*/
+
+        .hidden {
+            display: none;
+        }
+
+        .main-head-contianer {
+            max-width: 1100px;
+            margin: 0px auto;
+        }
+
+        .main-head-contianer #search {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            border-radius: 7px;
+            border: 1px solid #ccc;
+        }
+
+        .not-found {
+            display: none;
+            border: 1px solid #f1f1f1;
+            border-radius: 10px;
+            height: auto;
+            text-align: center;
+            font-style: oblique;
+            color: #ccc;
+            font-family: cursive;
+            font-size: 2rem;
+
+        }
+
+        .relative {
+            position: relative;
+            max-width: 400px;
+        }
+
+        .loader {
+            position: absolute;
+            top: 7px;
+            right: 5px;
+            /* transform: translate(-50%, 50%);*/
+            border: 5px solid grey;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: transparent;
+            border-left-color: rgba(0, 204, 255, 0.436);
+            animation: spin .5s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /*hamburger menu container*/
+        #menu-container {
+            cursor: pointer;
+        }
+
+        #menu-container>.bar-one {
+            border: 1.9px solid black;
+            width: 30px;
+            margin: 5px;
+        }
+
+        .bar-two {
+            border: 1.9px solid black;
+            width: 25px;
+            margin: 5px;
+        }
+
+        .bar-three {
+            border: 1.9px solid black;
+            width: 20px;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-head-contianer">
+        <div>
+            <div id="menu-container">
+                <div class="bar-one"></div>
+                <div class="bar-two"></div>
+                <div class="bar-three"></div>
+            </div>
+        </div>
+        <div class="relative">
+            <input type="text" id='search' placeholder="Filter...">
+            <div class="loader"></div>
+        </div>
+    </div>
+    <!--Default product in the store-->
+    <div class="container">
+        <div>
+            <h2>Store</h2>
+            <div class="defualt-store"></div>
+            <!--Item not found-->
+            <div class="not-found">Not Found!</div>
+        </div>
+        <!--Your cart-->
+        <div>
+            <h2>Cart summary</h2>
+            <div class="your-cart"></div>
+        </div>
+    </div>
+
+    <form id="myForm" name="myForm">
+        <div class="head-caption--times">
+            <h4>Add Store Item</h4>
+            <span class="times">&times;</span>
+        </div>
+
+        <label for="pro-name">Product Name</label>
+        <input type="text" id="pro-name" placeholder="product name" name="pro-name">
+
+        <label for="pro-price">Price ($)</label>
+        <input type="number" id="pro-price" placeholder="product price" name="pro-price">
+
+        <label for="pro-url">Image Url</label>
+        <input type="text" id="pro-url" placeholder="Img url" name="pro-url">
+        <button type="submit">Save Product</button>
+    </form>
+
+    <script>
+        const defaultProducts = [
+            { id: 1784200382584, imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeK7B7sz_ArGDle3eN5685J0OKK39vTUjIg8n6TNK9Xg&s=10", name: 'mclaren', price: 1900 },
+
+            { id: 1784200374684, imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQObgRv_wEyVUHw_ZDWIlFm3QtwoahU9Wjq0mqw71WUqQ&s=10", name: 'eva', price: 190 },
+
+            { id: 1784200359874, imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQObgRv_wEyVUHw_ZDWIlFm3QtwoahU9Wjq0mqw71WUqQ&s=10", name: 'Laptop', price: 190 },
+
+            { id: 1784200348950, imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQObgRv_wEyVUHw_ZDWIlFm3QtwoahU9Wjq0mqw71WUqQ&s=10", name: 'Laptop', price: 190 },
+
+            { id: 1784200334034, imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtyN5e3ksWGGK8KZ_Px1RWcEtQdrWwVAy7H2iGwxTyeg&s=10", name: 'mclaren-eva', price: 14490 },
+
+            { id: 1784200319500, imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDBbM0L0h5nazOGYa3sy9efjN6eW68N3KjMLz-4GNokg&s=10", name: 'mclaren', price: 1890 }
+        ];
+
+        let showid = Date.now()
+        console.log(showid)
+
+        const products = JSON.parse(localStorage.getItem('my-app-store')) || defaultProducts;
+        console.log(products);
+
+        document.getElementById('myForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('pro-name').value;
+            const price = document.getElementById('pro-price').value;
+            const imgUrl = document.getElementById('pro-url').value;
+
+            const id = Date.now();
+
+            products.push({ id, imgUrl, name, price })
+            localStorage.setItem('my-app-store', JSON.stringify(products));
+
+            renderDisplay()
+
+            this.reset();
+
+        });
+
+        function renderDisplay() {
+            const Disply = document.querySelector(".defualt-store");
+            Disply.innerHTML = "";
+            products.map(item => {
+                const display = `
+        <div class='default-store--child-con'>
+            <div class='default-display-image-con'>
+               <img src="${item.imgUrl}">
+            </div>
+
+            <div class='defaut-details-con'>
+              <div class='default-name'>${item.name}</div>
+              <div class='default-price'>$${Number(item.price).toFixed(2)}</div>
+              <button id='default-add-button' onclick = "addToCart(${item.id}, '${item.imgUrl}', '${item.name}', ${item.price})">Add</button>
+            </div>
+        </div>`;
+                Disply.innerHTML += display;
+            });
+        }
+
+        //Search for poducts
+        const search = document.getElementById('search');
+        search.addEventListener('input', (e) => {
+            const list = document.querySelectorAll('.default-store--child-con');
+            const searchInput = e.target.value.toLowerCase();
+
+            let hasMatch = false;
+
+            const loader = document.querySelector('.loader');
+            if (search.value.length > 0) {
+                loader.style.display = 'block';
+            } else {
+                loader.style.display = 'none'
+            }
+
+            setInterval(() => {
+                loader.style.display = 'none';
+            }, 300);
+
+            list.forEach(item => {
+                const listValue = item.textContent.toLocaleLowerCase();
+
+                console.log(listValue)
+                if (listValue.includes(searchInput)) {
+                    item.classList.remove('hidden');
+                    hasMatch = true;
+                } else {
+                    item.classList.add('hidden');
+                }
+
+                //Not found
+                const notFound = document.querySelector('.not-found');
+                if (!hasMatch) {
+                    notFound.style.display = 'block'
+                } else {
+                    notFound.style.display = 'none';
+                }
+            })
+        });
+
+
+        /// Edit code below
+        let cart = JSON.parse(localStorage.getItem('my-app-cart')) || [];
+
+        function addToCart(id, imgUrl, name, price) {
+            const existingItem = cart.find(item => item.id === id);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, imgUrl, name, price, quantity: 1 })
+            }
+
+            localStorage.setItem('my-app-cart', JSON.stringify(cart));
+            renderCartDisply();
+        }
+
+        function renderCartDisply() {
+            const yourCart = document.querySelector('.your-cart');
+            const cartHtml = cart.map(item => {
+                return `
+            <div class='your-cart-display--flex'>
+                <div class='image-con'>
+                  <img src= '${item.imgUrl} alt='${item.name}'>
+                </div>
+
+                <div class='your-cart-details'>
+                    <strong>${item.name}</strong>
+                    <div class='price--quantity'>$${item.price} x ${item.quantity}</div>
+                   <div class='button-con'>
+                   <button id='decrease' onclick='decrease(${item.id})'> - </button> <button id='remove' onclick='removeAll(${item.id})'>Remove</button>
+                 </div>
+                </div>
+            </div>`}).join("");
+            yourCart.innerHTML = cartHtml;
+        }
+
+        function decrease(id) {
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.quantity -= 1;
+                if (existingItem.quantity === 0) {
+                    cart = cart.filter(item => item.id !== id)
+                }
+            }
+            localStorage.setItem('my-app-cart', JSON.stringify(cart));
+            renderCartDisply();
+        }
+
+        function removeAll(id) {
+            cart = cart.filter(item => item.id !== id);
+            localStorage.setItem('my-app-cart', JSON.stringify(cart));
+            renderCartDisply();
+
+        }
+
+        renderDisplay();
+        renderCartDisply();
+
+    </script>
+</body>
+
+</html>
